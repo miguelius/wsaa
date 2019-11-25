@@ -1,4 +1,4 @@
-# Cliente WSAA AFIP para Python
+# Módulo WSAA Liviano para Python #
 
 Cliente ligero para autenticarse a un web service AFIP usando pyOpenSSL. Se usa esta librería porque es màs fàcil de instalar con cualquier SO. Es ligero porque no genera un mensaje S/MIME para obtener el pkcs7 ni llamar a la consola, sino que lo genera usando la librería.
 
@@ -10,7 +10,7 @@ El módulo funciona con el ambiente de homologación. Hay una variable de entorn
 
 Se distribuye bajo licencia GPLv3.
 
-## Instalación
+## Instalación
 
 Hay que importar las librerías que usa:
 
