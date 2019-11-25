@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """
 Módulo wsaa liviano
 Copyright (C) 2019 miguelius
@@ -31,16 +33,15 @@ def crear_tra(servicio, segundos_expiracion = 60):
   generacion = datetime.fromtimestamp(now - 60).isoformat()
   expiracion = datetime.fromtimestamp(now + segundos_expiracion).isoformat()
 
-  return f"""<?xml version="1.0" encoding="UTF-8"?>
+  return """<?xml version="1.0" encoding="UTF-8"?>
     <loginTicketRequest version="1.0">
       <header>
-        <uniqueId>{now}</uniqueId>
-        <generationTime>{generacion}-03:00</generationTime>
-        <expirationTime>{expiracion}-03:00</expirationTime>
+        <uniqueId>%s</uniqueId>
+        <generationTime>%s-03:00</generationTime>
+        <expirationTime>%s-03:00</expirationTime>
       </header>
-      <service>{servicio}</service>
-    </loginTicketRequest>
-  """
+      <service>%s</service>
+    </loginTicketRequest>"""%(now,generacion, expiracion,servicio)
 
 def firmar_tra_con(tra, pkcs12=None, cert=None, key=None):
   if pkcs12 is not None:
@@ -65,7 +66,7 @@ def main(certificado,passwd,servicio):
     a = crear_tra(servicio)
     s = firmar_tra_con(a, pkcs12 = p12)
     history = HistoryPlugin()
-    client = Client(f'{base_url}?wsdl', plugins=[history])
+    client = Client('%s?wsdl'%base_url, plugins=[history])
     mensaje = client.service.loginCms(in0=s)
   except Exception as e:
     mensaje = str(e)
@@ -75,11 +76,11 @@ def main(certificado,passwd,servicio):
     print(mensaje)
 
 def imprimir_uso(eje):
-  print(f"""{eje} uso:
-{eje} ruta_al_certificado_pkcs12 pass id_servicio
+  print("""%s uso:
+%s ruta_al_certificado_pkcs12 pass id_servicio
 
 Imprime el ticket con las credenciales o arroja la excepcion encontrada.
-  """)
+  """%(eje,eje))
 
 if __name__ == '__main__':
   if len(argv) != 4:
