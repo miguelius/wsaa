@@ -10,6 +10,8 @@ El módulo funciona con el ambiente de homologación. Hay una variable de entorn
 
 Se distribuye bajo licencia GPLv3.
 
+Por ahora no funciona con python 3.9.
+
 ## Instalación
 
 Hay que importar las librerías que usa:
@@ -23,7 +25,7 @@ pip install -r requirements.txt
 Supongamos que el certificado que generamos esta en el archivo ejemplo.p12 con clave 1234 y queremos ingresar a ws_sr_constancia_inscripcion:
 
 ```bash
-python wsaa.py ejemplo.p12 1234  
+python wsaa.py ejemplo.p12 1234 ws_sr_padron_a5
 ```
 Si todo fue bien imprimirá la respuesta con el token y el sign.
 
