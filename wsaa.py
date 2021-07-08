@@ -72,7 +72,7 @@ def main(servicio, ruta_certificado, ruta_clave, passwd):
       key = crypto.load_privatekey(crypto.FILETYPE_PEM, f.read(), passwd)
 
     base_url = AMBIENTE
-    a = crear_tra(servicio)
+    a = crear_tra(servicio, segundos_expiracion=3600*24)
     s = firmar_tra_con(a, cert=cert, key=key)
     client = Client('%s?wsdl'%base_url)
     mensaje = client.service.loginCms(s.decode('ascii'))
